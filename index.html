@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISTRITO 171 - Roleplay LAC</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto:wght@400;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET E ESTILO GERAL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)),
+                url('https://images.unsplash.com/photo-1599939571322-792a326991f2?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 3px solid #00ff41;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-small h3 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* MENU DE NAVEGAÇÃO */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: #00ff41;
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+        }
+
+        nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #00ff41;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.5rem;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
+
+        .social-links .discord:hover { color: #5865F2; text-shadow: 0 0 10px #5865F2; }
+        .social-links .youtube:hover { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        /* LOGO */
+        .main-logo {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .main-logo img {
+            max-width: 300px;
+            width: 100%;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5));
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- PUBLICIDADE --- */
+        .ad-space {
+            background: repeating-linear-gradient(45deg, #1e1e1e, #1e1e1e 10px, #2a2a2a 10px, #2a2a2a 20px);
+            border: 2px dashed #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 2px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .ad-space::after { 
+            content: "PUBLICIDADE"; 
+            font-size: 0.8rem; 
+            background: #000; 
+            padding: 2px 5px; 
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .ad-728 { 
+            width: 728px; 
+            height: 90px; 
+            max-width: 100%; 
+            min-height: 90px;
+        }
+        
+        .ad-300 { width: 300px; height: 250px; }
+
+        /* Iframe seguro para anúncios - Impede redirecionamento */
+        .safe-ad-iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* --- SISTEMA DE TABS --- */
+        .tab-content {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- VERIFICAÇÃO --- */
+        .verification-box {
+            background: rgba(20, 20, 20, 0.95);
+            border: 2px solid #ffcc00;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            margin: 30px 0;
+            box-shadow: 0 0 30px rgba(255, 204, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .verification-box::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+            background: linear-gradient(to bottom, #009c3b, #ffcc00, #002776);
+        }
+        .verification-box h2 {
+            font-family: 'Rajdhani', sans-serif; text-transform: uppercase; font-size: 2rem;
+            margin-bottom: 20px; color: #ffcc00;
+        }
+        
+        .code-display {
+            background: #000; color: #00ff41; font-family: 'Courier New', monospace;
+            font-size: 2rem; font-weight: bold; padding: 20px; border: 1px solid #333;
+            border-radius: 5px; margin-bottom: 20px; word-break: break-all;
+            /* Proteção contra seleção */
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+            cursor: not-allowed;
+        }
+
+        .btn-copy {
+            background: linear-gradient(90deg, #009c3b, #007a2e); color: white; border: none;
+            padding: 15px 40px; font-size: 1.2rem; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; border-radius: 5px; transition: 0.3s; display: inline-flex;
+            align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(0, 156, 59, 0.4);
+        }
+        .btn-copy:hover { transform: scale(1.05); background: linear-gradient(90deg, #00b042, #009c3b); }
+        .success-message {
+            margin-top: 20px; color: #fff; font-size: 1.1rem; display: none;
+            background: rgba(0, 156, 59, 0.2); padding: 10px; border-radius: 5px;
+            border-left: 4px solid #00ff41;
+        }
+
+        /* --- MODAL DE ANÚNCIO (POPUP) --- */
+        .ad-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .ad-modal-content {
+            background: #111;
+            border: 2px solid #00ff41;
+            padding: 10px; 
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.2);
+            text-align: center;
+            /* Tamanho fixo para conter o anúncio */
+            width: 340px; 
+            height: 380px; 
+            max-width: 95%;
+            
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ad-timer-text {
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .ad-timer-text span {
+            color: #ffcc00;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+        
+        /* BOTÃO DE FECHAR (Overlay - Fica em cima) */
+        .close-ad-btn {
+            display: none; /* Começa escondido */
+            
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centraliza */
+            z-index: 2147483647; 
+
+            background: #ff0000;
+            color: white;
+            border: 2px solid #990000;
+            
+            padding: 15px 40px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Rajdhani', sans-serif;
+            white-space: nowrap; 
+            
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+        }
+        
+        .close-ad-btn:hover { 
+            background: #cc0000; 
+        }
+
+        /* --- SEÇÃO DE REGRAS --- */
+        .rules-container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+            text-align: left;
+        }
+
+        .rule-card {
+            background: rgba(25, 25, 25, 0.95);
+            border: 1px solid #333;
+            border-left: 3px solid #00ff41;
+            padding: 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border-left-color: #ffcc00;
+        }
+
+        .rule-title {
+            color: #ffcc00;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-desc {
+            font-size: 0.95rem;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: #00ff41;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 50px; padding: 20px; background: #050505; color: #555;
+            font-size: 0.9rem; border-top: 1px solid #222; text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            /* IMPORTANTE: Esconder anúncio grande no mobile para evitar redirect */
+            .ad-728 { display: none; }
+            
+            .code-display { font-size: 1.5rem; }
+            .verification-box { padding: 20px; }
+            nav ul { gap: 15px; }
+            nav ul li a { font-size: 1rem; }
+
+            .ad-modal-content {
+                /* Ajuste para caber em telas pequenas */
+                width: 90%; 
+                height: auto;
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-small">
+            <h3 style="color:white; font-family:'Rajdhani'">DISTRITO <span style="color:#ffcc00">171</span></h3>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a onclick="showTab('home')" class="active" id="btn-home">INÍCIO</a></li>
+                <li><a onclick="showTab('regras')" id="btn-regras">REGRAS</a></li>
+            </ul>
+        </nav>
+
+        <div class="social-links">
+            <a href="https://discord.gg/KZkB9PKkGY" target="_blank" class="discord"><i class="fab fa-discord"></i></a>
+            <a href="https://youtube.com/@distrito171lac?si=CQy0KfrdNrKDVcB4" target="_blank" class="youtube"><i class="fab fa-youtube"></i></a>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="main-logo">
+            <img src="logo.png" alt="Logo Distrito 171" onerror="this.src='https://placehold.co/400x200?text=LOGO+DISTRITO+171'">
+        </div>
+
+        <div class="ad-space ad-728">
+            <iframe class="safe-ad-iframe" sandbox="allow-scripts allow-popups allow-same-origin" srcdoc="
+                <body style='margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#1e1e1e;'>
+                <script type='text/javascript'>
+                    atOptions = {
+                        'key' : 'f2fc11825c77506816279c5b1393084e',
+                        'format' : 'iframe',
+                        'height' : 90,
+                        'width' : 728,
+                        'params' : {}
+                    };
+                </script>
+                <script type='text/javascript' src='https://www.highperformanceformat.com/f2fc11825c77506816279c5b1393084e/invoke.js'></script>
+                </body>
+            "></iframe>
+        </div>
+
+        <div id="home" class="tab-content active">
+            <section class="verification-box">
+                <h2><i class="fas fa-id-card"></i> Verificação Oficial</h2>
+                <p style="margin-bottom: 15px; color: #ccc;">Clique no botão abaixo para liberar e copiar seu código.</p>
+                
+                <div class="code-display" id="codigoTexto">2601550</div>
+                
+                <button class="btn-copy" onclick="iniciarCopia()">
+                    <i class="fas fa-copy"></i> Copiar Código
+                </button>
+
+                <div class="success-message" id="msgSucesso">
+                    <i class="fas fa-check-circle"></i> <strong>Sucesso!</strong> Já podemos voltar pro jogo e usar o código.
+                </div>
+            </section>
+        </div>
+
+        <div id="regras" class="tab-content">
+            <div style="margin-bottom: 20px; text-align: center;">
+                <h2 style="font-family: 'Rajdhani'; color: #00ff41; font-size: 2.5rem;">CÓDIGO PENAL & REGRAS</h2>
+                <p style="color:#888;">O desconhecimento não impede a punição. Leia atentamente.</p>
+            </div>
+
+            <div class="rules-container">
+                <div class="rule-card"><div class="rule-title">1. RDM</div><div class="rule-desc">Random Deathmatch. É estritamente proibido matar outro jogador sem um motivo válido dentro do Roleplay.</div></div>
+                <div class="rule-card"><div class="rule-title">2. VDM</div><div class="rule-desc">Vehicle Deathmatch. Proibido utilizar o veículo como arma para atropelar ou matar, mesmo que haja motivo.</div></div>
+                <div class="rule-card"><div class="rule-title">3. Meta Gaming</div><div class="rule-desc">Trazer informações de fora do jogo (Discord, Whatsapp, Lives) para dentro do RP. O personagem só sabe o que ele vê ou ouve na cidade.</div></div>
+                <div class="rule-card"><div class="rule-title">4. Roubo de Veículo</div><div class="rule-desc">Se seu carro for roubado, você não pode "spawnar" ele de volta ou expulsar os ladrões remotamente.</div></div>
+                <div class="rule-card"><div class="rule-title">5. Operações Policiais</div><div class="rule-desc">Invasões e operações exigem motivo concreto e aprovação de um Juiz/Superior.</div></div>
+                <div class="rule-card"><div class="rule-title">6. Regra de Assalto</div><div class="rule-desc">Para realizar assaltos ou sequestros, é obrigatório ter no mínimo <span class="highlight">2 criminosos</span> na ação.</div></div>
+                <div class="rule-card"><div class="rule-title">7. Amor à Vida (FearRP)</div><div class="rule-desc">Se você for rendido ou estiver em desvantagem, não reaja. Valorize a vida do seu personagem.</div></div>
+                <div class="rule-card"><div class="rule-title">8. PG (Power Gaming)</div><div class="rule-desc">Fazer ações impossíveis na vida real. Ex: pular de montanhas com carro esporte, capotar e sair andando.</div></div>
+                <div class="rule-card"><div class="rule-title">9. PK (Player Kill)</div><div class="rule-desc">Se morrer, você perde a memória imediata da ação. Esqueça quem te matou.</div></div>
+                <div class="rule-card"><div class="rule-title">10. RK (Revenge Kill)</div><div class="rule-desc">Se morrer, é proibido voltar para a mesma ação ou local até que tudo tenha acabado.</div></div>
+                <div class="rule-card"><div class="rule-title">11. CB (Cop Baiting)</div><div class="rule-desc">Provocar a polícia propositalmente apenas para iniciar perseguições.</div></div>
+                <div class="rule-card"><div class="rule-title">12. Exploiting / Bugs</div><div class="rule-desc">Proibido se aproveitar de falhas do jogo.</div></div>
+                <div class="rule-card"><div class="rule-title">13. Vingança OOC</div><div class="rule-desc">Matar um jogador apenas para se vingar de ter morrido em outra ocasião.</div></div>
+                <div class="rule-card"><div class="rule-title">14. Dark RP</div><div class="rule-desc">Tolerância ZERO para: racismo, nazismo, machismo, homofobia. <span class="highlight">Banimento imediato.</span></div></div>
+                <div class="rule-card"><div class="rule-title">15. IFPI</div><div class="rule-desc">Informações Fora do Personagem.</div></div>
+                <div class="rule-card"><div class="rule-title">16. CL (Combat Logging)</div><div class="rule-desc">Desconectar do jogo propositalmente durante uma ação.</div></div>
+                <div class="rule-card"><div class="rule-title">17. ATPL (Anti-RP)</div><div class="rule-desc">Atrapalhar ações alheias de propósito.</div></div>
+                <div class="rule-card"><div class="rule-title">18. NS (No Sense)</div><div class="rule-desc">Falta de medo ou coerência.</div></div>
+                <div class="rule-card"><div class="rule-title">19. IC (In Character)</div><div class="rule-desc">Mantenha-se no personagem.</div></div>
+                <div class="rule-card"><div class="rule-title">20. CJ (Car Jacking)</div><div class="rule-desc">Roubar veículo puxando motorista sem render.</div></div>
+                <div class="rule-card"><div class="rule-title">21. OOC (Out of Character)</div><div class="rule-desc">Falar assuntos de fora do jogo dentro da cidade.</div></div>
+                <div class="rule-card"><div class="rule-title">22. MIX</div><div class="rule-desc">Confundir canais de chat.</div></div>
+                <div class="rule-card"><div class="rule-title">23. KOS (Kill on Sight)</div><div class="rule-desc">Matar à primeira vista sem interação.</div></div>
+                <div class="rule-card"><div class="rule-title">24. Info de Terceiros</div><div class="rule-desc">Pegar informações de quem não está participando.</div></div>
+                <div class="rule-card"><div class="rule-title">25. Regra de Quantidade</div><div class="rule-desc">Proibido roubar sozinho.</div></div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+            <div class="ad-space ad-300">
+                <iframe class="safe-ad-iframe" sandbox="allow-scripts allow-popups allow-same-origin" srcdoc="
+                    <body style='margin:0;padding:0;display:flex;justify-content:center;align-items:center;background:#1e1e1e;'>
+                    <script type='text/javascript'>
+                        atOptions = {
+                            'key' : '745cf56074e768501f24905439e2eb11',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type='text/javascript' src='https://www.highperformanceformat.com/745cf56074e768501f24905439e2eb11/invoke.js'></script>
+                    </body>
+                "></iframe>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 DISTRITO 171 - O Melhor RP de LAC do Brasil.</p>
+        <p>São Paulo / Rio de Janeiro - Roleplay Sério.</p>
+    </footer>
+
+    <div id="adModal" class="ad-modal-overlay">
+        <div class="ad-modal-content">
+            <p class="ad-timer-text">Aguarde para liberar o código: <span id="countdown">5</span>s</p>
+            
+            <div style="margin: 10px 0; width: 300px; height: 250px;">
+                <iframe class="safe-ad-iframe" sandbox="allow-scripts allow-popups allow-same-origin" srcdoc="
+                    <body style='margin:0;padding:0;overflow:hidden;background:#000;'>
+                    <script type='text/javascript'>
+                        atOptions = {
+                            'key' : '745cf56074e768501f24905439e2eb11',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type='text/javascript' src='https://www.highperformanceformat.com/745cf56074e768501f24905439e2eb11/invoke.js'></script>
+                    </body>
+                "></iframe>
+            </div>
+
+            <button id="btnCloseAd" class="close-ad-btn" onclick="fecharECopiar()">
+                FECHAR E COPIAR <i class="fas fa-check"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function piscarBotao(btn) {
+            const randomTime = Math.random() * 1000;
+            
+            setTimeout(() => {
+                if (document.getElementById("adModal").style.display === "none") return;
+
+                if (btn.style.visibility === "hidden") {
+                    btn.style.visibility = "visible";
+                } else {
+                    btn.style.visibility = "hidden";
+                }
+                
+                piscarBotao(btn);
+            }, randomTime);
+        }
+
+        function iniciarCopia() {
+            const modal = document.getElementById("adModal");
+            const btnClose = document.getElementById("btnCloseAd");
+            const countdownEl = document.getElementById("countdown");
+            
+            modal.style.display = "flex";
+            
+            btnClose.style.display = "none";
+            btnClose.style.visibility = "visible"; 
+            let timeLeft = 5;
+            countdownEl.innerText = timeLeft;
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownEl.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    countdownEl.innerHTML = "<span style='color:#00ff41'>LIBERADO!</span>";
+                    btnClose.style.display = "block";
+                    piscarBotao(btnClose);
+                }
+            }, 1000);
+        }
+
+        function fecharECopiar() {
+            const modal = document.getElementById("adModal");
+            modal.style.display = "none";
+
+            const codigo = document.getElementById("codigoTexto").innerText;
+            
+            // Tenta copiar pelo método moderno
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                 navigator.clipboard.writeText(codigo).then(() => {
+                    sucessoCopia();
+                }).catch(err => {
+                    console.error('Erro Clipboard API (segurança): ', err);
+                    // Se falhar (ex: site sem HTTPS), tenta o método antigo
+                    copiarFallback(codigo);
+                });
+            } else {
+                // Se o navegador não suportar, vai pro antigo direto
+                copiarFallback(codigo);
+            }
+        }
+
+        function copiarFallback(texto) {
+            try {
+                // Cria uma área de texto temporária fora da tela
+                const textArea = document.createElement("textarea");
+                textArea.value = texto;
+                
+                // Evita que a tela pule
+                textArea.style.position = "fixed"; 
+                textArea.style.left = "-9999px";
+                textArea.style.top = "0";
+                
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                // Executa comando de copiar antigo
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                if (successful) {
+                    sucessoCopia();
+                } else {
+                    throw new Error("Falha no execCommand");
+                }
+            } catch (err) {
+                console.error('Erro Fallback: ', err);
+                // Último recurso: pede pro usuário copiar manual
+                prompt("Não foi possível copiar automaticamente (bloqueio do navegador). Copie manualmente:", texto);
+            }
+        }
+
+        function sucessoCopia() {
+            const msg = document.getElementById("msgSucesso");
+            const btn = document.querySelector(".btn-copy");
+            msg.style.display = "block";
+            btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+            btn.style.background = "#333";
+            btn.disabled = true;
+            msg.style.animation = "float 0.5s ease";
+        }
+
+        function showTab(tabName) {
+            var tabs = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            document.getElementById("btn-home").classList.remove("active");
+            document.getElementById("btn-regras").classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            document.getElementById("btn-" + tabName).classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
